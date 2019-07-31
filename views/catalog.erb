@@ -1,0 +1,19 @@
+<h2>Add A Book To The System</h2>
+<div class="form-group">
+<form class="" action="/catalog" method="post">
+  <label for="">Book Title:</label>
+  <input type="text" name="book_title" value="">
+  <button type="submit" name="button">Add Book</button>
+</form>
+</div>
+
+
+<div class="container">
+  <% if @catalog.any? %>
+  <ul>
+    <% @catalog.each do|book|%>
+      <li><%= book.title %></li>
+    <%end%>
+  </ul>
+  <% end %>
+</div>

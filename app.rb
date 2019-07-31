@@ -2,11 +2,12 @@ require('sinatra')
 require('sinatra/reloader')
 require('pry')
 require('rspec')
-also_reload('./lib/**/*.rb')
 require('./lib/author')
 require('./lib/book')
 require('./lib/checkouts')
 require('./lib/user')
+require('./lib/catalog')
+also_reload('./lib/**/*.rb')
 
 require('pg')
 
@@ -38,14 +39,29 @@ post ('/users')do
   redirect to ('/users')
 end
 
-get ('/users/:user_id')do
+post ('/user_history')do
+  # need to find a way to properly route to user page
+  user_name = params[:user_name]
+  redirect to ("/users/:user_name")
+end
+
+get ('users/:user_name')do
   user_name = params[:user_name]
   user_id = User.search_by_name(user_name)
-
+  @books_checked_out = User.checked_out(user_id)
+  erb :users
 end
 
 get ('/catalog')do
+  Catalog.clear
+  @catalog = Catalog.populate
   erb :catalog
+end
+
+post ('/catalog')do
+  book_title = params[:book_title]
+  Catalog.save(book_title)
+  redirect to ('/catalog')
 end
 
 get ('/catalog/books')do

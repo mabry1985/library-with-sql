@@ -1,1 +1,8 @@
-# DB = PG.connect({:dbname => "local_library"})
+
+class Book
+  attr_accessor :title
+
+  def initialize(attr)
+    @title = attr.fetch(:title)
+  end
+end

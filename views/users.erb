@@ -9,9 +9,18 @@
 
 <h2>View User History</h2>
 <div class="form-group">
-<form class="" action="/users/:user_id" method="get">
+<form class="" action="/user_history" method="post">
   <label for="">Library Patron Name:</label>
   <input type="text" name="user_name" value="">
-  <button type="submit" name="button">Add User</button>
+  <button type="submit">View</button>
 </form>
 </div>
+
+<% if @books_checked_out != nil %>
+  <h2>Books Checked Out:</h2>
+  <ul>
+    <%@books_checked_out.each do |book| %>
+    <li>book.title</li>
+    <% end %>
+  </ul>
+<% end %>
