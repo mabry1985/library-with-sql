@@ -20,7 +20,26 @@
   <h2>Books Checked Out:</h2>
   <ul>
     <%@books_checked_out.each do |book| %>
-    <li>book.title</li>
+      <li>
+        <form method="post" action="/return/<%=@user_name%>/<%=book.title%>">
+          <h3><%=book.title%></h3>
+          <p>Checkout Date: <%=book.checkout_date.month%>/<%=book.checkout_date.day%>/<%=book.checkout_date.year%></p>
+          <p>Due Date: <%=book.due_date.month%>/<%=book.due_date.day%>/<%=book.due_date.year%></p>
+          <p>Overdue:
+            <%if book.due_date < Time.new %>
+              <%="Yes!!!!"%>
+              <% book_overdue = true %>
+              <%else%>
+              <%="Not overdue........yet....."%>
+            <% end %>
+          </p>
+          <% if book_overdue = true %>
+              <p> You owe: $<%= ((Time.new - book.due_date)/86400).round*(0.25) %></p>
+          <% end %>
+          <inputstyle="display:none">
+          <button type="submit"  action="<%=book.title%>">Return Book</button>
+        </form>
+      </li>
     <% end %>
   </ul>
 <% end %>
