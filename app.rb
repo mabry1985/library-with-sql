@@ -2,7 +2,6 @@ require('sinatra')
 require('sinatra/reloader')
 require('pry')
 require('rspec')
-require('./lib/author')
 require('./lib/book')
 require('./lib/checkouts')
 require('./lib/user')
@@ -68,8 +67,15 @@ end
 
 post ('/catalog')do
   book_title = params[:book_title]
-  Catalog.save(book_title)
+  book_desc = params[:book_desc]
+  Catalog.save(book_title, book_desc)
   redirect to ('/catalog')
+end
+
+get ('/catalog/:book_title') do
+  book_title = params[:book_title]
+  @book = Catalog.search_by_title(book_title)
+  erb :book
 end
 
 

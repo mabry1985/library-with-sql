@@ -2,7 +2,9 @@
 <div class="form-group">
 <form class="" action="/catalog" method="post">
   <label for="">Book Title:</label>
-  <input type="text" name="book_title" value="">
+  <input type="text" name="book_title" value="" required>
+  <label for="">Book Description:</label>
+  <input type="text" name="book_desc" value="" required>
   <button type="submit" name="button">Add Book</button>
 </form>
 </div>
@@ -12,7 +14,7 @@
   <% if @catalog.any? %>
   <ul>
     <% @catalog.each do|book|%>
-      <li><%= book.title %></li>
+      <li><a href = "/catalog/<%=book.title%>"><%= book.title %></a></li>
     <%end%>
   </ul>
   <% end %>

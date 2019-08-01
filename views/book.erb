@@ -1,0 +1,7 @@
+<h2>View Book Details</h2>
+<div class="container">
+  <% if @book.title != nil %>
+    <h3>Title: <%=@book.title %></h3>
+    <p>Description: <%=@book.desc %></p>
+  <% end %>
+</div>
