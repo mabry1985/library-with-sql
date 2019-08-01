@@ -4,7 +4,6 @@ class Checkout
 
   def self.save(user_id, book_id, book_title, checkout_date, due_date)
     book_title = book_title.gsub("'", "''")
-    binding.pry
     if book_id == 0
       title_result = DB.exec("SELECT * FROM books WHERE title='#{book_title}';").first
       book_id = title_result["id"]
