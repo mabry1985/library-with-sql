@@ -2,7 +2,13 @@ require('pg')
 
 class Checkout
 
-  def self.save(user_id, book_id, checkout_date, due_date)
+  def self.save(user_id, book_id, book_title, checkout_date, due_date)
+    book_title = book_title.gsub("'", "''")
+    binding.pry
+    if book_id == 0
+      title_result = DB.exec("SELECT * FROM books WHERE title='#{book_title}';").first
+      book_id = title_result["id"]
+    end
     DB.exec("INSERT INTO checkouts (id_users, id_books, checkout_date, due_date) VALUES (#{user_id}, #{book_id},'#{checkout_date}', '#{due_date}');")
     DB.exec("UPDATE books SET checked_out='true' WHERE id='#{book_id}';")
   end
