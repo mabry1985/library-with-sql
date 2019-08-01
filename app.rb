@@ -10,6 +10,8 @@ also_reload('./lib/**/*.rb')
 
 require('pg')
 
+DB = PG.connect({:dbname => "local_library"})
+
 get ('/')do
   erb :default
 end
